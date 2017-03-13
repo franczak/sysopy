@@ -1,22 +1,22 @@
 #ifndef list_h
 #define list_h
 
-typedef struct node node;
-typedef struct data data;
-typedef struct list list;
+typedef struct NODE node;
+typedef struct CONTACT contact;
+typedef struct LIST list;
 typedef int (*comparator)(node*,node*);
-struct data{
-	char name[30];
-	char surname[30];
-	char birthDate[30];
-	char mail[30];
-	char phone[12];
-	char address[30];
+struct contact{
+	char *name;
+	char *surname;
+	char *birthDate;
+	char *mail;
+	char *phone;
+	char *address;
 };
 struct node{
 	node* next;
 	node* prev;
-	data data;
+	contact data;
 };
 struct list{
 	node* head;
@@ -28,6 +28,7 @@ struct list{
 	node* (*get_person)(*list,char*,char*);
 	char* (*list_to_string)(*list);
 	void (*sort)(list*,comparator);
+	void (*print_list)(node*);
 };
 
 void delete_list(list* list);
