@@ -84,8 +84,85 @@ void print_list(node* head){
 	while(tmp->next!=NULL){
 		tmp2=tmp;
 		tmp=tmp->next;
-		tmp2->next=null;
 		free(tmp2);
 	}
 	free(list);
  }
+ 
+void swap(node *node1, node *node2, list *list) {
+    if((node1 != NULL && node2 != NULL) && (node1 != node2)) {
+        node *tmp1, *tmp2;
+        if(list->head == node1) {
+            list->head = node2;
+        } else if(list->head == node2) {
+            list->head = node1;
+        }
+
+        if(list->tail == node1) {
+            list->tail = node2;
+        } else if(list->tail == node2) {
+            list->tail = node1;
+        }
+
+        tmp1 = node1->next;
+        tmp2 = node2->next;
+        node1->next = tmp2;
+        node2->next = tmp1;
+        if(tmp1 != NULL) tmp1->prev = node2;
+        if(tmp2 != NULL) tmp2->prev = node1;
+
+        tmp1 = node1->prev;
+        tmp2 = node2->prev;
+        node1->prev = tmp2;
+        node2->prev = tmp1;
+        if(tmp1 != NULL) tmp1->next = node2;
+        if(tmp2 != NULL) tmp2->next = node1;
+    }
+}
+ 
+ 
+void insert_sort(list *list, char *key){
+	if(list!=NULL){
+		node *tmpH=list->head;
+		node *current, *tmp;
+		
+		while(tmpH!=NULL){
+			current=tmpH->next;
+			while(current!=NULL && comparator(tmpH,current,key)<=0)
+				current=current->next;
+			if(current!=NULL){
+				tmp = tmpH->next;
+				swap(current,tmpH,list);
+				tmpH=tmp;}
+				else{
+					tmpH=tmpH->next;
+				}
+			}
+		}
+}
+ 
+int comparator(node *node1, node *node2, char *key) {
+    if(node1 != NULL && node2 != NULL) {
+        if(strcmp(key,"name") == 0 ) {
+            return strcmp(node1->data.name, node2->data.name);
+
+        }
+        else if(strcmp(key,"surname") == 0 ) {
+            return strcmp(node1->data.surname, node2->data.surname);
+        }
+        else if(strcmp(key,"phone") == 0 ) {
+            return strcmp(node1->data.phone, node2->data.phone);
+        }
+        else if(strcmp(key,"email") == 0 ) {
+            return strcmp(node1->data.mail, node2->data.mail);
+        }
+        else {
+            fprintf(stderr, "Wrong argument!\n");
+            exit(EXIT_FAILURE);
+        }
+    }
+    return 0;
+}
+
+
+

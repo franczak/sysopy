@@ -4,7 +4,7 @@
 typedef struct NODE node;
 typedef struct CONTACT contact;
 typedef struct LIST list;
-typedef int (*comparator)(node*,node*);
+
 struct contact{
 	char *name;
 	char *surname;
@@ -13,6 +13,7 @@ struct contact{
 	char *phone;
 	char *address;
 };
+
 struct node{
 	node* next;
 	node* prev;
@@ -21,23 +22,26 @@ struct node{
 struct list{
 	node* head;
 	node* tail;
-	void (*delete_list)(list *);
-	void (*remove_person)(list*,char*,char*);
-	void (*add_person)(list*,data*);
-	list (*create_list)();
-	node* (*get_person)(*list,char*,char*);
-	char* (*list_to_string)(*list);
-	void (*sort)(list*,comparator);
-	void (*print_list)(node*);
 };
 
-void delete_list(list* list);
-void remove_person(list* list, char* name, char* surname);
-void add_person(list* list, data* data);
-list* create_list();
-node* get_person(list* list, char* name, char* surname);
-char* list_to_string(list* list);
-node* quickersort(node* head,comparator cmp);
+list * create_list();
+
+void add_contact(list* lista, node* contact);
+
+void remove_contact(list* lista, char* surname, char* phone);
+
+node * create_contact(char *name, char *surname, char *day, char *mail, char *phone, char *address);
+
+void print_list(node* head);
+
+void delete_list(list *list);
+
+void swap(node *node1, node *node2, list *list);
+
+void insert_sort(list *list, char *key);
+
+int comparator(node *node1, node *node2, char *key);
+
 #endif
 
 
