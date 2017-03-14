@@ -54,7 +54,7 @@ void remove_contact(list* lista, char* surname, char* phone){
 }
 
 node * create_contact(char *name, char *surname, char *day, char *mail, char *phone, char *address){
-	node *contact=malloc(sizeof(node));
+	node *contact=(node*)malloc(sizeof(node));
 	contact->next=NULL;
 	contact->prev=NULL;
 	contact->data.name=name;
@@ -63,6 +63,7 @@ node * create_contact(char *name, char *surname, char *day, char *mail, char *ph
 	contact->data.mail=mail;
 	contact->data.phone=phone;
 	contact->data.address=address;
+	return contact;
 }
 
 void print_list(node* head){
