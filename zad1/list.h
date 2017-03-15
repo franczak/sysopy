@@ -17,7 +17,7 @@ struct contact{
 struct node{
 	node* next;
 	node* prev;
-	contact data;
+	contact* data;
 };
 struct list{
 	node* head;
